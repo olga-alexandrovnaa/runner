@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RUNNER</title>
+    <link rel="shortcut icon" href="flower.png" type="png">
+<style>
+    body{
+        background: url(back.jpg);
+    }
+    #gameBody{
+        margin: 0 auto;
+    }
+    #th1{
+        font-size: 30px;
+        text-shadow: 1px 1px 2px red, 0 0 1em white, 0 0 0.2em white;
+        min-width: 100px;
+        text-align: left;
+        padding-right: 70px;
+        vertical-align: top;
+    }
+    #th2{
+        font-size: 30px;
+        text-shadow: 1px 1px 2px red, 0 0 1em white, 0 0 0.2em white;
+        min-width: 100px;
+        text-align: left;
+        padding-left: 70px;
+        vertical-align: top;
+    }
+    #th3{
+        font-size: 30px;
+        text-shadow: 1px 1px 2px red, 0 0 1em white, 0 0 0.2em white;
+        min-width: 100px;
+        text-align: left;
+        padding-left: 70px;
+        vertical-align: top;
+    }
+    button {
+        padding: 1em;
+        background: rgba(114, 122, 231, 0.63);
+        border-right: 1px solid rgba(114, 122, 231, 0.63);
+        text-shadow: 1px 1px 2px red, 0 0 1em white, 0 0 0.2em white;
+        color: #000000;
+        font-size: 30px;
+        font-style: italic;
+        border-radius: 12px;
+        border: 5px blue;
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.432), 0 5px 8px rgba(12, 6, 6, 0.486);
+    }
+    button:hover {
+        background: rgba(114, 122, 231, 0.63);
+    }
+
+</style>
+</head>
+<body>
+<table id = "gameBody">
+    <tr><th id = "th1">
+    <div id="info">
+        <div class id="username">Игрок: </div>
+        <div class id="level">Текущий уровень: 0</div>
+        <div class id="speed">Текущая скорость: 1</div>
+    </div>
+    </th><th>
+    <canvas id="canvasId" width="800" height="700" style="border: 1px solid black">
+
+    </canvas>
+    </th><th id = "th2">
+    <div id="records">
+        <div class id="recordTable">Таблица рекордов: </div>
+        <div class id="table">
+        </div>
+    </div>
+    </th><th id = "th3">
+        <button onclick="window.location='index.html'">Новая игра</button>
+    </th></tr>
+</table>
+    <script>
+        let name_game = localStorage.getItem('gamer_name');
+        document.getElementById("username").innerHTML = "Игрок: " + name_game;
+    </script>
+
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="scripts/Objects.js"></script>
+    <script type="text/javascript" src="scripts/mapManager.js"></script>
+    <script type="text/javascript" src="scripts/eventsManager.js"></script>
+    <script type="text/javascript" src="scripts/physicManager.js"></script>
+    <script type="text/javascript" src="scripts/audioManager.js"></script>
+    <script type="text/javascript" src="scripts/spriteManager.js"></script>
+
+    <script type="text/javascript" src="scripts/gameManager.js"></script>
+
+
+</body>
+</html>
