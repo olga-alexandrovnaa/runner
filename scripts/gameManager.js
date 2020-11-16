@@ -5,10 +5,10 @@ var gameManager = {
     factory: {},
     entities: [],
     player: null,
+    bonus: null,
     level: 1.2,
     players_steps: 0,
     isGameStop: 0,
-
     initPlayer: function (obj) {
         this.player = obj;
     },
@@ -79,10 +79,13 @@ var gameManager = {
                 Bad.move_x -= 12 + gameManager.level;
                 Bad.draw(ctx);
             }
+            gameManager.bonus.move_x -= 12 + gameManager.level;
+            gameManager.bonus.draw(ctx);
             if (gameManager.entities[0].move_x < -400) {
                 let delBad = gameManager.entities[0];
                 gameManager.entities.splice(0, 1);
                 delBad.move_x = 800;
+                delBad.symb = delBad.getBad();
                 gameManager.entities.push(delBad);
                 if (gameManager.players_steps === 0) {
                     gameManager.players_steps = 4;
@@ -94,19 +97,41 @@ var gameManager = {
                 document.getElementById("level").innerHTML = "Текущий уровень: " + gameManager.players_steps;
             }
 
+            if (gameManager.bonus.move_x < -400) {
+                gameManager.bonus.move_x = 2000;
+            }
+
+            if ((Player.move_y) > gameManager.bonus.move_y - 50) {
+                if (Math.abs(Player.move_x - gameManager.bonus.move_x) < 64 ) {
+                    Player.protection = true;
+                }
+            }
+
             if ((Player.move_y) > gameManager.entities[0].move_y - 50) {
                 if (Math.abs(Player.move_x - gameManager.entities[0].move_x) < 32 ) {
-                    gameManager.gameStop();
+                    if(Player.protection){
+                        Player.protection = false;
+                    }else{
+                        gameManager.gameStop();
+                    }
                 }
             }
             if ((Player.move_y) > gameManager.entities[1].move_y - 50) {
                 if (Math.abs(Player.move_x - gameManager.entities[1].move_x) < 32 ) {
-                    gameManager.gameStop();
+                    if(Player.protection){
+                        Player.protection = false;
+                    }else{
+                        gameManager.gameStop();
+                    }
                 }
             }
             if ((Player.move_y) > gameManager.entities[2].move_y - 50) {
                 if (Math.abs(Player.move_x - gameManager.entities[2].move_x) < 32 ) {
-                    gameManager.gameStop();
+                    if(Player.protection){
+                        Player.protection = false;
+                    }else{
+                        gameManager.gameStop();
+                    }
                 }
             }
             setInterval(this.gameloop, 50);
@@ -118,18 +143,26 @@ var gameManager = {
         spriteManager.loadAtlas("sprites/bad.json", "sprites/bad.png");
         gameManager.factory['hero']= Player;
         gameManager.factory['Bad'] = Bad;
+        gameManager.factory['Bonus'] = Bonus;
+        Player.protection = false;
         let Bad1 = Object.create(gameManager.factory["Bad"]);
         Bad1.move_x = 800;
         Bad1.move_y = 570;
+        Bad1.symb = "122";
         gameManager.entities.push(Bad1);
         let Bad2 = Object.create(gameManager.factory["Bad"]);
         Bad2.move_x = 1200;
-        Bad1.move_y = 570;
+        Bad2.move_y = 570;
+        Bad2.symb = "122";
         gameManager.entities.push(Bad2);
         let Bad3 = Object.create(gameManager.factory["Bad"]);
         Bad3.move_x = 1600;
-        Bad1.move_y = 570;
+        Bad3.move_y = 570;
+        Bad3.symb = "122";
         gameManager.entities.push(Bad3);
+        gameManager.bonus = Object.create(gameManager.factory["Bonus"]);
+        gameManager.bonus.move_x = 2000;
+        gameManager.bonus.move_y = 570;
         mapManager.parseEntities();
         eventsManager.setup(ctx);
         audioManager.init()

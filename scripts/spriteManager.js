@@ -29,7 +29,7 @@ var spriteManager = {
         }
         this.jsonLoaded = true;
     },
-    drawSprite(ctx,name,x, y,dx,dy){
+    drawSprite(ctx,name,x, y,dx,dy, constt){
         if(!this.imgLoaded || !this.jsonLoaded){
             setTimeout(function () {
                 spriteManager.drawSprite(ctx,name, x, y,dx,dy);
@@ -40,7 +40,7 @@ var spriteManager = {
                 return;
             x-=mapManager.view.x;
             y-=mapManager.view.y;
-            ctx.drawImage(this.image,sprite.x ,sprite.y ,sprite.w, sprite.h, x + dx, y + dy, sprite.w*1.5, sprite.h*1.5);
+            ctx.drawImage(this.image,sprite.x ,sprite.y ,sprite.w, sprite.h, x + dx, y + dy, sprite.w*constt, sprite.h*constt);
         }
     },
     getSprite(name){
